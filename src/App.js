@@ -59,7 +59,11 @@ const App = () => {
 
   const blogFormRef = React.createRef()
   const blogForm = () => (
-    <Togglable buttonLabel='new blog' ref={blogFormRef}>
+    <Togglable
+      buttonId='create-blog'
+      buttonLabel='Create new blog'
+      ref={blogFormRef}
+    >
       <BlogForm createBlog={addBlog} />
     </Togglable>
   )
@@ -121,7 +125,7 @@ const App = () => {
 
   return (
     <div>
-      <h2>blogs</h2>
+      <h2>Blogs</h2>
       <div>
         <p>{user.name} logged in.</p>
         <button onClick={logoutUser}>Logout</button>
