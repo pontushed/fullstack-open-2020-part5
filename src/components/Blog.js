@@ -1,6 +1,19 @@
 import React, { useState } from 'react'
 import blogService from '../services/blogs'
 
+const RemoveButton = ({ blog, username, handleBlogRemoval }) => {
+  const removeBlog = () => {
+    const confirm = window.confirm(`Remove blog ${blog.title} ?`)
+    if (confirm) {
+      blogService.remove(blog.id).then(handleBlogRemoval(blog))
+    }
+  }
+
+  return username === blog.user.username ? (
+    <button onClick={removeBlog}>Remove</button>
+  ) : null
+}
+
 const Blog = ({ blog, handleBlogUpdate, handleBlogRemoval, username }) => {
   const [showFull, setShowFull] = useState(false)
 
@@ -24,19 +37,6 @@ const Blog = ({ blog, handleBlogUpdate, handleBlogRemoval, username }) => {
       .then(handleBlogUpdate(updatedBlog))
   }
 
-  const removeBlog = () => {
-    const confirm = window.confirm(`Remove blog ${blog.title} ?`)
-    if (confirm) {
-      blogService.remove(blog.id).then(handleBlogRemoval(blog))
-    }
-  }
-
-  const RemoveButton = () => {
-    return username === blog.user.username ? (
-      <button onClick={removeBlog}>Remove</button>
-    ) : null
-  }
-
   if (showFull) {
     return (
       <div style={blogStyle}>
@@ -50,7 +50,11 @@ const Blog = ({ blog, handleBlogUpdate, handleBlogRemoval, username }) => {
           Likes: {blog.likes} <button onClick={addLike}>Like</button>
           <br />
           {blog.user.name}
-          <RemoveButton />
+          <RemoveButton
+            blog={blog}
+            username={username}
+            handleBlogRemoval={handleBlogRemoval}
+          />
         </div>
       </div>
     )
