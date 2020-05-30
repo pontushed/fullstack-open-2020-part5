@@ -34,7 +34,7 @@ describe('Blog app', function () {
     })
   })
 
-  describe.only('When logged in', function () {
+  describe('When logged in', function () {
     beforeEach(function () {
       cy.login({ username: 'tester', password: 'tester' })
     })
@@ -73,7 +73,7 @@ describe('Blog app', function () {
       cy.contains('Remove').click()
     })
 
-    it.only('Blogs are sorted by likes', function () {
+    it('Blogs are sorted by likes', function () {
       cy.get('#create-blog').click()
       cy.get('#title').type('Test Blog')
       cy.get('#author').type('Author')
